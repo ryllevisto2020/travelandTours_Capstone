@@ -1,0 +1,9 @@
+//UPLOAD FILE TO PUBLIC FOLDER
+Route::post('/file/upload',function(Request $request){
+    $file = $request->file('test')->storeAs('public/document',"test".".jpg");
+});
+
+//UPLOAD FILE TO PRIVATE FOLDER
+Route::post('/file/upload/legal',function(Request $request){
+    Storage::disk('legal')->putFileAs(null,$request->file('test'),"test.jpg");
+});

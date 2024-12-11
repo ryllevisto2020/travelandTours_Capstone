@@ -1,0 +1,42 @@
+{
+  "facilities": [
+    {
+      "id": 1,
+      "facilityName": "sada",
+      "facilityType": 2,
+      "facilityCapacity": 21311,
+      "status": 1
+    },
+    {
+      "id": 1,
+      "facilityName": "awd",
+      "facilityType": 2,
+      "facilityCapacity": 123,
+      "status": 1
+    }
+  ],
+  "legalstorage": [
+    {
+      "id": -1,
+      "responsiveId": "",
+      "documentName": "sdasd",
+      "legalType": 1,
+      "legalEntity": "sad",
+      "issueDate": "2024-10-10T19:55:00.000Z",
+      "expirationDate": "2024-11-02T19:55:00.000Z",
+      "department": 2,
+      "status": 2
+    },
+    {
+      "id": -1,
+      "responsiveId": "",
+      "documentName": "asdas",
+      "legalType": 2,
+      "legalEntity": "sadas",
+      "issueDate": "2024-09-30T19:56:00.000Z",
+      "expirationDate": "2024-10-24T19:56:00.000Z",
+      "department": 1,
+      "status": 1
+    }
+  ]
+}
