@@ -5,14 +5,27 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
 </script>
 
 <template>
-
-  <VerticalNavLink
-      :item="{
+ <VerticalNavGroup
+        :item="{
         title: 'Visitor',
         to: '/vis-dashboard',
         icon: 'bx-user',
       }"
+    >
+    <VerticalNavLink
+      :item="{
+        title: 'Visitor',
+        to: '/vis-dashboard',
+      }"
     />
+    <VerticalNavLink
+      :item="{
+        title: 'Feedback',
+        to: '/dashboard',
+      }"
+    />
+  </VerticalNavGroup>
+
 
     <VerticalNavLink
       :item="{

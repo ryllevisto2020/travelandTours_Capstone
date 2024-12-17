@@ -18,6 +18,7 @@ declare module 'vue' {
     DialogManager: typeof import('./resources/js/components/DialogManager.vue')['default']
     EditDialog: typeof import('./resources/js/components/dialogs/EditDialog.vue')['default']
     ErrorHeader: typeof import('./resources/js/components/ErrorHeader.vue')['default']
+    FeedbackDialog: typeof import('./resources/js/components/dialogs/FeedbackDialog.vue')['default']
     Header: typeof import('./resources/js/components/header.vue')['default']
     Homepage: typeof import('./resources/js/components/homepage.vue')['default']
     MoreBtn: typeof import('./resources/js/@core/components/MoreBtn.vue')['default']

@@ -4,34 +4,9 @@
     import AddDialog from '@/components/dialogs/AddDialog.vue';
     import EditDialog from '@/components/dialogs/EditDialog.vue';
     import DeleteDialog from '@/components/dialogs/DeleteDialog.vue';
+    import FeedbackDialog from '@/components/dialogs/FeedbackDialog.vue';
 
-
-
-    const handleDeleteItem = (item) => {
-    itemToDelete.value = { ...item }; // Ensure id is preserved
-     deleteDialog.value = true;
-    };
-
-    const deleteItemConfirm = () => {
-    if (itemToDelete.value) {
-    const index = userList.value.findIndex(item => item.id === itemToDelete.value.id);
-    if (index !== -1) {
-      userList.value.splice(index, 1); // Remove the specific item
-      snackbarMessage.value = 'Appointment deleted successfully!';
-      snackbar.value = true;
-    }
-    }
-    deleteDialog.value = false;
-    };
-
-    const handlePreviousStep = () => {
-    if (activeStep.value > 1) activeStep.value--;
-    };
-
-    const handleNextStep = () => {
-    if (activeStep.value < 2) activeStep.value++;
-    };
-
+    const isDialogVisible = ref(false);
     const editedItem = ref({});
     const validationErrors = ref({});
     const userList = ref([]);
@@ -70,6 +45,43 @@
     { title: 'STATUS', key: 'status' },
     { title: 'ACTIONS', key: 'actions' },
     ];
+
+        //Feedback
+    const openDialog = () => {
+    isDialogVisible.value = true;
+    };
+
+    const handleFeedbackSubmit = (rating) => {
+    snackbarMessage.value = 'Appointment deleted successfully!';
+    snackbar.value = true;
+    console.log('Feedback submitted:', rating);
+    };
+
+    //Delete
+    const handleDeleteItem = (item) => {
+    itemToDelete.value = { ...item };
+     deleteDialog.value = true;
+    };
+
+    const deleteItemConfirm = () => {
+    if (itemToDelete.value) {
+    const index = userList.value.findIndex(item => item.id === itemToDelete.value.id);
+    if (index !== -1) {
+      userList.value.splice(index, 1); // Remove the specific item
+      snackbarMessage.value = 'Appointment deleted successfully!';
+      snackbar.value = true;
+    }
+    }
+    deleteDialog.value = false;
+    };
+
+    const handlePreviousStep = () => {
+    if (activeStep.value > 1) activeStep.value--;
+    };
+
+    const handleNextStep = () => {
+    if (activeStep.value < 2) activeStep.value++;
+    };
 
     const resolveStatusVariant = (status) => ({
     color: 'warning',
@@ -215,6 +227,13 @@ const handleUpdateItem = (updatedItem) => {
     <DeleteDialog
         v-model:dialogVisible="deleteDialog"
         @delete="deleteItemConfirm"
+    />
+
+    <VBtn @click="openDialog">Give Feedback</VBtn>
+    <FeedbackDialog
+      :dialogVisible="isDialogVisible"
+      @update:dialogVisible="isDialogVisible = $event"
+      @submitFeedback="handleFeedbackSubmit"
     />
 
     <!-- Snackbar for confirmation -->

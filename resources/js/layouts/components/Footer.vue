@@ -3,7 +3,7 @@
     <!-- 👉 Footer: left content -->
     <span class="d-flex align-center">
       &copy;
-    
+
       <VIcon
         icon="bx-heart"
         color="error"
