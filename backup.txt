@@ -7,3 +7,5 @@ Route::post('/file/upload',function(Request $request){
 Route::post('/file/upload/legal',function(Request $request){
     Storage::disk('legal')->putFileAs(null,$request->file('test'),"test.jpg");
 });
+
+Hayop
