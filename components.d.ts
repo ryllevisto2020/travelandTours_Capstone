@@ -13,9 +13,7 @@ declare module 'vue' {
     CardStatisticsHorizontal: typeof import('./resources/js/@core/components/cards/CardStatisticsHorizontal.vue')['default']
     CardStatisticsVertical: typeof import('./resources/js/@core/components/cards/CardStatisticsVertical.vue')['default']
     CardStatisticsWithImages: typeof import('./resources/js/@core/components/cards/CardStatisticsWithImages.vue')['default']
-    DeleteConfirmationDialog: typeof import('./resources/js/components/DeleteConfirmationDialog.vue')['default']
     DeleteDialog: typeof import('./resources/js/components/dialogs/DeleteDialog.vue')['default']
-    DialogManager: typeof import('./resources/js/components/DialogManager.vue')['default']
     EditDialog: typeof import('./resources/js/components/dialogs/EditDialog.vue')['default']
     ErrorHeader: typeof import('./resources/js/components/ErrorHeader.vue')['default']
     FeedbackDialog: typeof import('./resources/js/components/dialogs/FeedbackDialog.vue')['default']
@@ -26,7 +24,6 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     ThemeSwitcher: typeof import('./resources/js/@core/components/ThemeSwitcher.vue')['default']
     UpgradeToPro: typeof import('./resources/js/components/UpgradeToPro.vue')['default']
-    UseraddDialog: typeof import('./resources/js/components/dialogs/useraddDialog.vue')['default']
     VueApexCharts: typeof import('vue3-apexcharts')['default']
   }
 }
