@@ -41,11 +41,13 @@ class Validation {
     if (!this.password || this.password.trim() === '') {
       errors.push({ errCode: "0x03", msg: "Invalid Password", class: "errPASS" })
     }
+    
     return errors
   }
 
   isValidEmail(email) {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailPattern = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
+    
     return emailPattern.test(email)
   }
 }
@@ -61,8 +63,10 @@ const login = e => {
 
   const formValidation = new Validation(empData.email, empData.password)
   const errors = formValidation.validate()
+
   errors.forEach(error => {
     const errComp = document.getElementsByClassName(error.class)
+
     errComp[0].style = "visibility: visible;"
     errComp[0].style = "color: red;"
     errComp[0].innerText = error.msg
@@ -94,7 +98,7 @@ const login = e => {
       },
     })
 
-    axios.post("/admin/login", { data: empData }, {
+    axios.post("/login/action/login", { data: empData }, {
       headers: {
         'X-CSRF-TOKEN': csrf_token[0].content,
       },
