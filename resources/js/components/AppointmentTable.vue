@@ -65,7 +65,7 @@ const filteredList = computed(() => {
           {{ props.resolveStatusVariant(item.status).text }}
         </VChip>
       </template>
-      <template #item.actions="{ item }">
+      <template  #item.actions="{ item }">
         <VBtn icon variant="text" color="primary" @click="props.handleEditItem(item)">
           <VIcon icon="bx-edit" />
         </VBtn>
