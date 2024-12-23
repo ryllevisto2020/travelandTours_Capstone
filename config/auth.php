@@ -39,14 +39,6 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ],
-        'apitokens' => [
-            'driver' => 'session',
-            'provider' => 'apitoken',
-        ],
-        'coreUser' => [
-            'driver' => 'session',
-            'provider' => 'coreUsers',
         ]
     ],
 
@@ -72,15 +64,7 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
-        'apitoken' => [
-            'driver' => 'database',
-            'model' => App\Models\apistoken::class,
-        ],
-        'coreUsers' => [
-            'driver' => 'database',
-            'table' => 'tbl_core_user',
-        ],
+        ]
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
