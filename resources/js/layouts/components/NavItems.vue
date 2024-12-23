@@ -18,21 +18,5 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
         to: '/vis-dashboard',
       }"
     />
-    <VerticalNavLink
-      :item="{
-        title: 'Feedback',
-        to: '/dashboard',
-      }"
-    />
   </VerticalNavGroup>
-
-
-    <VerticalNavLink
-      :item="{
-        title: 'Facility',
-        to: '/fac-dashboard',
-        icon: 'bx-home',
-      }"
-    />
-
 </template>
