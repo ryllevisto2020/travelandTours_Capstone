@@ -9,4 +9,5 @@ Route::post('/file/upload/legal',function(Request $request){
 });
 
 Hayop ka
-awda
+awda]
+test
