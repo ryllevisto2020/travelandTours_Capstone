@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class isLogin
 {
@@ -15,6 +16,11 @@ class isLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        $isLogin = Auth::guard("loginAuth")->check();
+        if (!$isLogin) {
+            return redirect()->route('login');
+        } else {
+            return $next($request);
+        }
     }
 }

@@ -98,7 +98,7 @@ const login = e => {
       },
     })
 
-    axios.post("/login/action/login", { data: empData }, {
+    axios.post("/login/auth", { data: empData }, {
       headers: {
         'X-CSRF-TOKEN': csrf_token[0].content,
       },
@@ -117,7 +117,7 @@ const login = e => {
         })
         e.target.disabled = false
         e.target.innerText = "Login"
-        router.push("/")
+        router.push("/vis-dashboard")
       }
     })
 
