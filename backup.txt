@@ -8,5 +8,4 @@ Route::post('/file/upload/legal',function(Request $request){
     Storage::disk('legal')->putFileAs(null,$request->file('test'),"test.jpg");
 });
 
-Hayop ka
-awd test test
+visto
