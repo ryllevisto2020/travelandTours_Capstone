@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class isLogin
+class isClient
 {
     /**
      * Handle an incoming request.
@@ -16,11 +16,11 @@ class isLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $isLogin = Auth::guard("loginAuthClient")->check();
-        if (!$isLogin) {
-            return redirect()->route('login');
-        } else {
+        $isClient = Auth::guard("loginAuthClient")->check();
+        if($isClient){
             return $next($request);
+        }else{
+            return response(404);
         }
     }
 }

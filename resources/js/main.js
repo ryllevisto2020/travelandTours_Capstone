@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { createApp } from 'vue'
 import App from '@/App.vue'
 import { registerPlugins } from '@core/utils/plugins'
@@ -9,7 +10,6 @@ import '@styles/styles.scss'
 
 // Create vue app
 const app = createApp(App)
-
 
 // Register plugins
 registerPlugins(app)

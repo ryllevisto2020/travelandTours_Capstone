@@ -58,9 +58,9 @@ watch(searchTerm, (newValue) => {
             </IconBtn>
 
             <div class="d-flex align-center cursor-pointer ms-lg-n3" style="user-select: none; position: relative;">
-              <input 
-                v-model="searchTerm" 
-                placeholder="Search anything..." 
+              <input
+                v-model="searchTerm"
+                placeholder="Search anything..."
                 class="search-input"
               />
               <IconBtn @click="performSearch">
@@ -89,13 +89,13 @@ watch(searchTerm, (newValue) => {
         <VList>
           <!-- 👉 User Avatar & Name -->
           <VListItem>
-            
+
 
             <VListItemTitle class="font-weight-black text-h4">
             Notifications
             </VListItemTitle>
 
-           
+
           </VListItem>
           <VDivider class="my-2" />
 
@@ -104,38 +104,38 @@ watch(searchTerm, (newValue) => {
             <template #prepend>
               This is notification
             </template>
-           
+
           </VListItem>
 
-       
+
 
           <!-- Other Menu Items -->
           <VListItem link>
             <template #prepend>
               This is notification
             </template>
-           
+
           </VListItem>
 
           <VListItem link to="">
             <template #prepend>
               This is notification
             </template>
-        
+
           </VListItem>
 
           <VListItem link>
             <template #prepend>
               This is notification
             </template>
-            
+
           </VListItem>
 
           <VListItem link>
             <template #prepend>
               This is notification
             </template>
-         
+
           </VListItem>
 
           <VDivider class="my-2" />
@@ -144,7 +144,7 @@ watch(searchTerm, (newValue) => {
             <template #prepend>
               This is notification
             </template>
-           
+
           </VListItem>
         </VList>
       </VMenu>
@@ -155,9 +155,9 @@ watch(searchTerm, (newValue) => {
         </template>
 
         <template #vertical-nav-header="{ toggleIsOverlayNavActive }">
-          <RouterLink to="/" class="app-logo app-title-wrapper">
+          <a href="/" class="app-logo app-title-wrapper">
             <div class="d-flex ml-5" v-html="logo" />
-          </RouterLink>
+          </a>
           <IconBtn class="d-block d-lg-none" @click="toggleIsOverlayNavActive(false)">
             <VIcon icon="bx-x" />
           </IconBtn>

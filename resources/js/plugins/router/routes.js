@@ -13,7 +13,7 @@ export const routes = [
         component: () => import('@/pages/account-settings.vue'),
       },
       {
-        path: '/vis-dashboard/:tab?',
+        path: '/client/vis-dashboard',
         name: 'vis-dashboard',
         component: () => import('@/pages/visitor/vis-dashboard.vue'),
       },
