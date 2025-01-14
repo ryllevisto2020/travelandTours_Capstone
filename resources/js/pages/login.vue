@@ -41,13 +41,13 @@ class Validation {
     if (!this.password || this.password.trim() === '') {
       errors.push({ errCode: "0x03", msg: "Invalid Password", class: "errPASS" })
     }
-    
+
     return errors
   }
 
   isValidEmail(email) {
     const emailPattern = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
-    
+
     return emailPattern.test(email)
   }
 }
@@ -98,7 +98,9 @@ const login = e => {
       },
     })
 
+
     axios.post("/login/auth", { data: empData }, {
+      withCredentials: true,
       headers: {
         'X-CSRF-TOKEN': csrf_token[0].content,
       },
@@ -117,7 +119,7 @@ const login = e => {
         })
         e.target.disabled = false
         e.target.innerText = "Login"
-        router.push("/vis-dashboard")
+        window.location.href = "/"
       }
     })
 

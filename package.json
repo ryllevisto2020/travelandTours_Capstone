@@ -17,11 +17,14 @@
         "@vueuse/math": "^10.5.0",
         "apexcharts": "3.49.2",
         "axios": "^1.7.7",
+        "jose": "^5.9.6",
+        "js-cookie": "^3.0.5",
         "json-server": "^1.0.0-beta.3",
         "pinia": "^2.1.7",
         "prismjs": "^1.29.0",
         "roboto-fontface": "^0.10.0",
         "vue": "^3.3.4",
+        "vue-cookies": "^1.8.5",
         "vue-flatpickr-component": "11.0.5",
         "vue-prism-component": "^2.0.0",
         "vue-router": "^4.3.0",
@@ -79,5 +82,12 @@
     "overrides": {
         "stylelint-order": "6.0.3"
     },
-    "version": "2.0.0"
+    "version": "2.0.0",
+    "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\" alt=\"Laravel Logo\"></a></p>",
+    "main": "vite.config.js",
+    "directories": {
+        "test": "tests"
+    },
+    "author": "",
+    "license": "ISC"
 }

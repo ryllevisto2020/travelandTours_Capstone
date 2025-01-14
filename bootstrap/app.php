@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\isClient;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -30,6 +31,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'throttle' => Illuminate\Routing\Middleware\ThrottleRequests::class,
             'verified' => Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
             'isLogin' => App\Http\Middleware\isLogin::class,
+            'isClient' => isClient::class,
             'verifyCsrf' => Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class,
         ]);
     })

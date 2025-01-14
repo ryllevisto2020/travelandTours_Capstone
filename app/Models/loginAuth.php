@@ -10,8 +10,8 @@ class loginAuth extends Authenticatable
 {
     use HasFactory;
 
-    protected $table = 'employee_account'; //Specify the table where all user information is stored
-    protected $guard = "loginAuth"; //Create a guard for the login authentication
+    protected $table = 'tbl_client_acc'; //Specify the table where all user information is stored
+    protected $guard = "loginAuthClient"; //Create a guard for the login authentication
     protected $fillable = [
         'email',
         'password',

@@ -40,9 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'loginAuth' => [
+        'loginAuthClient' => [
             'driver' => 'session',
-            'provider' => 'loginAuths',
+            'provider' => 'loginAuthClients',
         ]
     ],
 
@@ -69,9 +69,9 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-        "loginAuths" => [
+        "loginAuthClients" => [
             'driver' => 'database',
-            'table' => 'employee_account',
+            'table' => 'tbl_client_acc',
         ]
         // 'users' => [
         //     'driver' => 'database',
