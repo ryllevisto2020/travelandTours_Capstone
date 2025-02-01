@@ -39,7 +39,7 @@ if(jwt_verify.payload.role == "client"){
     >
       <VerticalNavLink
         :item="{
-          title: 'Visitor',
+          title: 'Appointment',
           to: '/client/vis-dashboard',
         }"
       />

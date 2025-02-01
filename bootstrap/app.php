@@ -16,7 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
         //
         $middleware->validateCsrfTokens(except: [
             'http://127.0.0.1:8000/file/upload',
-            'http://127.0.0.1:8000/file/upload/legal'
+            'http://127.0.0.1:8000/file/upload/legal',
+            'http://127.0.0.1:8000/client/appointment/create'
         ]);
         $middleware->alias([
             'auth' => \Illuminate\Auth\Middleware\Authenticate::class,

@@ -21,13 +21,13 @@ class loginCtrl extends Controller
                 return response()->json(["message" => "Success", "code" => 200])->cookie($cookie);
             }
 
-            if (Auth::guard("loginAuthEmp")->attempt($req->get("data"))) {
+            /**if (Auth::guard("loginAuthEmp")->attempt($req->get("data"))) {
                 $user = Auth::guard("loginAuthEmp")->user();
                 Auth::guard("loginAuthEmp")->login($user);
                 //Set Cookie for Role
                 $cookie = cookie("_token_rl","emp",0,null,null,null,true);
                 return response()->json(["message" => "Success", "code" => 200]);
-            }
+            }**/
 
             return response()->json(["message" => "Invalid Credentials", "code" => 401]);
         }
