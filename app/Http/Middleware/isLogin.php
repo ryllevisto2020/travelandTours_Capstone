@@ -16,8 +16,9 @@ class isLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $isLogin = Auth::guard("loginAuthClient")->check();
-        if (!$isLogin) {
+        $isLoginClient = Auth::guard("loginAuthClient")->check();
+        $isLoginEmp = true;
+        if (!$isLoginClient || !$isLoginEmp) {
             return redirect()->route('login');
         } else {
             return $next($request);
