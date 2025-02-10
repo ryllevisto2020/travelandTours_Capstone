@@ -1,8 +1,14 @@
+<!-- eslint-disable camelcase -->
+<!-- eslint-disable vue/custom-event-name-casing -->
+<!-- eslint-disable vue/no-restricted-class -->
+<!-- eslint-disable vue/prefer-true-attribute-shorthand -->
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <VDialog
     v-model="dialogVisible"
     max-width="800"
     class="rounded-xl shadow-lg"
+    persistent
   >
     <VCard class="pa-4">
       <!-- Title -->
@@ -14,7 +20,6 @@
           <div class="progress-indicator mt-2" />
         </div>
       </VCardTitle>
-
       <!-- Step 1: Personal Information -->
       <VCardText v-if="activeStep === 1">
         <VRow>
@@ -116,7 +121,10 @@
       </VCardText>
 
       <!-- Step 2: Purpose of Visit -->
-      <VCardText v-if="activeStep === 2">
+      <VCardText
+        v-if="activeStep === 2"
+        class="d"
+      >
         <VRow>
           <VCol
             cols="12"
@@ -139,8 +147,8 @@
               v-model="addedItem.selectedPurpose"
               :items="selectedPurposeType"
               label="Purpose of Visit"
-              item-title="text"
-              item-value="value"
+              item-title="purpose"
+              item-value="id"
               prepend-inner-icon="bx-analyse"
               :error-messages="validationErrors.selectedPurpose"
               dense
@@ -155,8 +163,8 @@
               v-model="addedItem.selectedFacility"
               :items="selectedFacilityType"
               label="Facility to Use"
-              item-title="text"
-              item-value="value"
+              item-title="facility"
+              item-value="id"
               prepend-inner-icon="bx-building"
               :error-messages="validationErrors.selectedFacility"
               dense
@@ -189,7 +197,7 @@
               show-size
               accept=".pdf,.png,.jpg,.jpeg"
               :error-messages="validationErrors.userValidId"
-              class="mb-4"
+              class="mb-4 test"
               @change="handleFileUpload"
             />
           </VCol>
@@ -271,6 +279,19 @@
 
 <script>
 import { defineComponent, toRefs, onMounted } from 'vue'
+import axios from 'axios'
+
+// eslint-disable-next-line camelcase
+var csrf_token = document.getElementsByName("csrf-token")[0]["content"]
+
+const facilities = await axios.get('/facilities', {
+  headers: {
+    // eslint-disable-next-line camelcase
+    "X-CSRF-TOKEN": csrf_token,
+  },
+})
+
+var [ facility, purpose ] = facilities.data
 
 export default defineComponent({
   props: {
@@ -298,20 +319,12 @@ export default defineComponent({
     selectedPurposeType: {
       type: Array,
       required: false,
-      default: () => [
-        { text: 'Business', value: 1 },
-        { text: 'Personal', value: 2 },
-        { text: 'Other', value: 3 },
-      ],
+      default: () => purpose.purpose,
     },
     selectedFacilityType: {
       type: Array,
       required: false,
-      default: () => [
-        { text: 'Meeting Room 1', value: 1 },
-        { text: 'Meeting Room 2', value: 2 },
-        { text: 'Meeting Room 3', value: 3 },
-      ],
+      default: () => facility.facilities,
     },
   },
   emits: ['previous-step', 'next-step', 'save-item', 'close-dialog'],
@@ -335,20 +348,30 @@ export default defineComponent({
         validationErrors.value.firstName = "First name is required."
         valid = false
       }
-      if (!addedItem.value.middleName) {
+
+      /*if (!addedItem.value.middleName) {
         validationErrors.value.middleName = "Middle name is required."
         valid = false
-      }
+      }*/
+
       if (!addedItem.value.lastName) {
         validationErrors.value.lastName = "Last name is required."
         valid = false
       }
-      if (!addedItem.value.userEmail) {
-        validationErrors.value.userEmail = "Email is required."
+
+      // eslint-disable-next-line camelcase, regexp/no-unused-capturing-group, regexp/no-useless-escape
+      var  validate_email = RegExp(/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/)
+      // eslint-disable-next-line camelcase
+      if (!addedItem.value.userEmail || !validate_email.test(addedItem.value.userEmail)) {
+        validationErrors.value.userEmail = "Email is Invalid."
         valid = false
       }
-      if (!addedItem.value.phoneNumber) {
-        validationErrors.value.phoneNumber = "Phone number is required."
+
+      // eslint-disable-next-line camelcase, regexp/prefer-d
+      var validate_phone = RegExp(/[0-9]{11}/)
+      // eslint-disable-next-line camelcase
+      if (!addedItem.value.phoneNumber || !validate_phone.test(addedItem.value.phoneNumber.toString())) {
+        validationErrors.value.phoneNumber = "Phone number is Invalid"
         valid = false
       }
       if (!addedItem.value.userAge) {
@@ -380,10 +403,50 @@ export default defineComponent({
       return valid
     }
 
-    const handleFileUpload = files => {
-      if (files && files.length > 0) {
-        addedItem.value.userValidId = files // Save the uploaded files to the state
-        validationErrors.value.userValidId = '' // Clear any previous errors
+    const handleFileUpload = async files => {
+      Swal.fire({
+        imageUrl: "https://www.wpfaster.org/wp-content/uploads/2013/06/loading-gif.gif",
+        imageHeight: 100,
+        html: "Checking File for Malicious Content...<br>Please Wait!",
+        target: ".d",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+      })
+
+      // eslint-disable-next-line camelcase
+      var file_report = await axios.post("/api/v3/files", { file: files.target.files[0] }, {
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      })
+
+      // eslint-disable-next-line camelcase
+      var malicious = file_report.data.data.data.attributes.last_analysis_stats.malicious
+      // eslint-disable-next-line camelcase
+      var suspicious = file_report.data.data.data.attributes.last_analysis_stats.suspicious
+      // eslint-disable-next-line camelcase
+      var fileName = file_report.data.fileName
+
+      addedItem.value.userFileName = fileName
+
+      if(malicious > 0 || suspicious > 0){
+        Swal.close()
+        Swal.fire({
+          icon: 'error',
+          text: "Malicious File Detected!",
+          target: ".d",
+          allowOutsideClick: false,
+        })
+        document.querySelector(".test .v-input__control .v-field .v-field__field .v-field__input").textContent=null
+        files.target.values=null
+        addedItem.value.userValidId = []
+      }else{
+        Swal.close()
+        if (files && files.length > 0) {
+          addedItem.value.userFileName = fileName // Save the uploaded files to the state
+          validationErrors.value.userValidId = '' // Clear any previous errors
+        }
       }
     }
 
@@ -428,6 +491,16 @@ export default defineComponent({
 
 <style scoped>
 /* Clean UI styling for the dialog */
+
+.disable-outside-click{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+}
+
 .pa-4 {
   padding: 16px;
 }

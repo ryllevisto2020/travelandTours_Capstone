@@ -1,3 +1,7 @@
+<!-- eslint-disable camelcase -->
+<!-- eslint-disable no-restricted-imports -->
+<!-- eslint-disable import/extensions -->
+<!-- eslint-disable import/no-unresolved -->
 <script setup>
 import { ref, reactive, computed } from 'vue'
 import {  VBtn, VCard, VCardTitle, VCardText, VSnackbar } from 'vuetify/components'
@@ -19,9 +23,11 @@ const resolveStatusVariant = status => resolveType(status, statusTypes)
 const editedItem = ref({})
 const validationErrors = ref({})
 const userList = ref([])
+const userRetrieveList = ref([])
 const search = ref('')
 const itemToDelete = ref(null)
 const activeStep = ref(1)
+
 
 const addedItem = ref({
   firstName: '',
@@ -31,12 +37,17 @@ const addedItem = ref({
   phoneNumber: '',
   userAge: null,
   userValidId: [],
+  userFileName: '',
   status: 'Pending',
   selectedDate: null,
   selectedPurpose: null,
   selectedFacility: null,
   additionalInfo: '',
 })
+
+const showDialog = () => {
+  dialogs.addDialogVisible = true
+}
 
 const dialogs = reactive({
   addDialogVisible: false,
@@ -78,45 +89,44 @@ const handleNextStep = () => {
 }
 
 const handleSaveItem = () => {
+  var csrf_token = document.getElementsByName("csrf-token")[0]["content"]
+
   const newId = Date.now()
 
   userList.value.push({
-    id: newId,
     ...addedItem.value,
-    userValidId: addedItem.value.userValidId.map(file => file.name),
   })
 
   axios.post("/client/appointment/create", { data: userList.value, file: addedItem.value.userValidId[0] },
     {
       headers: {
+        "X-CSRF-TOKEN": csrf_token,
         "Content-Type": "multipart/form-data",
       },
-    }).then(function res(){
+    }).then(function(res){
+    snackbarMessage.value = 'Appointment added successfully!'
+    snackbar.value = true
+    dialogs.addDialogVisible = false
+    addedItem.value = {
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      userEmail: '',
+      phoneNumber: '',
+      userAge: null,
+      userValidId: [],
+      userFileName: '',
+      status: 'Pending',
+      selectedDate: null,
+      selectedPurpose: null,
+      selectedFacility: null,
+      additionalInfo: '',
+    }
 
+    activeStep.value = 1
+    validationErrors.value = {}
+    userList.value=[]
   })
-
-
-
-  snackbarMessage.value = 'Appointment added successfully!'
-  snackbar.value = true
-  dialogs.addDialogVisible = false
-  addedItem.value = {
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    userEmail: '',
-    phoneNumber: '',
-    userAge: null,
-    userValidId: [],
-    status: 'Pending',
-    selectedDate: null,
-    selectedPurpose: null,
-    selectedFacility: null,
-    additionalInfo: '',
-  }
-
-  activeStep.value = 1
-  validationErrors.value = {}
 }
 
 const handleUpdateItem = updatedItem => {
@@ -161,7 +171,7 @@ const filteredList = computed(() => {
         <div>
           <VBtn
             color="primary"
-            @click="dialogs.addDialogVisible = true"
+            @click="showDialog"
           >
             Appoint Schedule
           </VBtn>
@@ -171,7 +181,7 @@ const filteredList = computed(() => {
 
     <VCardText class="pa-0">
       <AppointmentTable
-        :user-list="userList"
+        :user-list="userRetrieveList"
         :headers="headers"
         :handle-edit-item="handleEditItem"
         :handle-delete-item="handleDeleteItem"

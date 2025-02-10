@@ -44,9 +44,16 @@ return [
             'throw' => false,
         ],
 
-        'legal' => [
+        'id_checking' => [
             'driver' => 'local',
-            'root' => storage_path('app/legal'),
+            'root' => storage_path('app/valid_id_checking'),
+            'visibility' => 'private',
+            'throw' => false,
+        ],
+
+        'id_valid' => [
+            'driver' => 'local',
+            'root' => storage_path('app'),
             'visibility' => 'private',
             'throw' => false,
         ],
@@ -78,7 +85,6 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('document') => storage_path('app/public/document'),
     ],
 
 ];
