@@ -46,7 +46,7 @@ const filteredList = computed(() => {
       </template>
       <template #item.userValidId="{ item }">
   <div>
-    {{ item.userValidId.join(', ') }}
+    {{ item.userValidId }}
   </div>
 </template>
 

@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" href="{{ asset('icon.jpg') }}" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JVD Event and Travel Company</title>
   <link rel="stylesheet" type="text/css" href="{{ asset('loader.css') }}" />
@@ -15,7 +16,7 @@
 </head>
 
 <body>
-  <div id="app">
+  <div id="app" class="dialog">
 
   </div>
 

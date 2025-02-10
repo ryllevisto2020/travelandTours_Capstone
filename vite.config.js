@@ -66,11 +66,14 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 5000,
+    target: "ES2022",
   },
   optimizeDeps: {
     exclude: ['vuetify'],
     entries: [
       './resources/js/**/*.vue',
     ],
+  },
+  server: {
   },
 })

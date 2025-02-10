@@ -4,6 +4,8 @@ use App\Http\Controllers\clientCtrl;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\loginCtrl;
+use App\Models\facilities;
+use App\Models\visitPurpose;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Firebase\JWT\JWT;
@@ -54,6 +56,13 @@ Create login auth method for checking the authencity of the user
 */
 Route::post("/login/auth", [loginCtrl::class, "authenticate"]);
 
+/*
+Create routes to fetch facilities
+*/
+Route::get("/facilities",function(){
+    return response()->json([["facilities"=>facilities::all()],["purpose"=>visitPurpose::all()]]);
+})->middleware(["isLogin"]);
+
 /* --------------------------------------------CLIENT ROUTES----------------------------------------------------------------- */
 /*
 Create routes for dashboard and adding middleware for checking login status and check if client or employee
@@ -74,4 +83,8 @@ Route::prefix("/client/")->group(function () {
 /* --------------------------------------------ADMIN ROUTES----------------------------------------------------------------- */
 Route::prefix("/admin/")->group(function(){
 
+});
+
+Route::get("/test",function(){
+    dd(Auth::guard("loginAuthClient")->user());
 });
